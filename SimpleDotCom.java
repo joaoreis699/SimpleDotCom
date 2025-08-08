@@ -1,60 +1,29 @@
+import java.util.ArrayList;
+
 class SimpleDotCom {
 
-	int[] locationCells;
-	int numOfHits = 0;
-	int[] correctGuess = {-1, -1, -1};
-	int index = 0;
+	ArrayList<String> locationCells;
 
-	public void setLocationCells(int [] locs) {
+	public void setLocationCells(ArrayList<String> locs) {
 		locationCells = locs;
 	}
 
-	public String checkYourself(String stringGuess) {
+	public String checkYourself(String userInput) {
 
-		int guess = Integer.parseInt(stringGuess);
+		String result = "miss";
 
-		String result = "erro";
+		int index = locationCells.indexOf(userInput);
 
+		if(index >= 0) {
+			locationCells.remove(index);
 
-		for (int cell : locationCells) { 
-
-			if(guess == cell) {
-			
-				for (int checkingCell : correctGuess) {
-			
-					System.out.println("Valor atual de checkingCell " + checkingCell);
-					if(cell == checkingCell) {	
-
-						result = "Acerto já contabilizado";
-						break;
-					}
-				}
-				if(result.equals("Acerto já contabilizado")) {
-					break;
-				}
-
-				correctGuess[index++] = cell;
-					
-				result = "acerto";
-
-				numOfHits++;
-					
-				break;
+			if(locationCells.isEmpty()) {
+				result = "kill";
+			} else {
+				result = "hit";
 			}
 		}
-
-		if (numOfHits == locationCells.length) {
-
-			result = "eliminação";
-
-			for(int cell : correctGuess) {
-				System.out.print(cell + " ");
-			}
-		}
-
-		System.out.println();
 		System.out.println(result);
-
 		return result;
 	}
 }
